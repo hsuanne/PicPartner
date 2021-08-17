@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "314158208137",
+    "project_id": "application-login-c0b0a",
+    "storage_bucket": "application-login-c0b0a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:314158208137:android:5b59f827b80bffc94e2258",
+        "android_client_info": {
+          "package_name": "com.example.picpartner"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "314158208137-87anfutd66u3pvdbh9frmi044u33crf3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC6X-OAtRJTma3eOqgnz7SdX-AogU5MMl4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "314158208137-87anfutd66u3pvdbh9frmi044u33crf3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
