@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import com.example.picpartner.MainActivity
 import com.example.picpartner.R
+import com.example.picpartner.User
 import com.facebook.AccessToken
 import com.facebook.CallbackManager
 import com.facebook.FacebookCallback
@@ -25,6 +26,8 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import java.util.*
 
 
@@ -36,6 +39,9 @@ class LoginActivity : AppCompatActivity() {
     private val RC_SIGN_IN = 1
     private val TAG = "LoginActivity"
     private lateinit var auth:FirebaseAuth
+    val dataRef =
+        Firebase.database("https://application-login-c0b0a-default-rtdb.asia-southeast1.firebasedatabase.app")
+            .reference.child("Person")
 
     override fun onStart() {
         super.onStart()
@@ -173,7 +179,13 @@ class LoginActivity : AppCompatActivity() {
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
-                    val user = auth.currentUser
+                    val currentUser = auth.currentUser
+                    //upload data to firebase
+                    val newUrl = currentUser.photoUrl.toString()
+                    val glideUrl = "$newUrl?height=500"
+                    val user = User(currentUser.uid, currentUser.displayName, currentUser.email, glideUrl)
+                    uploadToFirebase(user)
+
                     Toast.makeText(baseContext, "FaceBook Authentication Success.",
                         Toast.LENGTH_SHORT).show()
                     startActivity(Intent(applicationContext, MainActivity::class.java))
@@ -192,12 +204,26 @@ class LoginActivity : AppCompatActivity() {
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
                     Toast.makeText(this, "Google Login Success" , Toast.LENGTH_SHORT).show()
-                    val user = auth.currentUser
+                    val currentUser = auth.currentUser
+
+                    //upload data to firebase
+                    val newUrl = currentUser.photoUrl.toString()
+                    val glideUrl = newUrl.substring(0, newUrl.length - 5) + "s400-c"
+                    val user = User(currentUser.uid, currentUser.displayName, currentUser.email, glideUrl)
+                    uploadToFirebase(user)
+
                     startActivity(Intent(applicationContext, MainActivity::class.java))
                 } else {
                     // If sign in fails, display a message to the user.
                     Toast.makeText(this, "signInWithCredential:failure:" + task.exception, Toast.LENGTH_SHORT).show()
                 }
             }
+    }
+
+    private fun uploadToFirebase(user: User) {
+        val userId = user.uid
+        if (userId != null) {
+            dataRef.child(userId).setValue(user)
+        }
     }
 }

@@ -95,7 +95,7 @@ class ProfileFragment : Fragment() {
             email.text = signInAccount.email
         }
 
-        // TODO: 改成從realtime db拿資料
+        //改成從realtime db拿資料
         val user = FirebaseAuth.getInstance().currentUser
         if (user!=null){
             var provider=user.providerData[0].providerId
@@ -106,22 +106,22 @@ class ProfileFragment : Fragment() {
 
             when(provider){
                 "google.com" -> {
-                    name.text = String.format(resources.getString(R.string.user_name), user.displayName)
-                    email.text = String.format(resources.getString(R.string.user_email), user.email)
-                    val newUrl = user.photoUrl.toString()
-                    glideUrl = newUrl.substring(0, newUrl.length - 5) + "s400-c"
+//                    name.text = String.format(resources.getString(R.string.user_name), user.displayName)
+//                    email.text = String.format(resources.getString(R.string.user_email), user.email)
+//                    val newUrl = user.photoUrl.toString()
+//                    glideUrl = newUrl.substring(0, newUrl.length - 5) + "s400-c"
+                    getUserData(user, userViewModel)
                 }
                 "facebook.com" -> {
-                    name.text = String.format(resources.getString(R.string.user_name), user.displayName)
-                    email.text = String.format(resources.getString(R.string.user_email), user.email)
-                    val newUrl = user.photoUrl.toString()
-                    glideUrl = "$newUrl?height=500"
-                    Glide.with(requireContext()).load(glideUrl).into(pic)
+//                    name.text = String.format(resources.getString(R.string.user_name), user.displayName)
+//                    email.text = String.format(resources.getString(R.string.user_email), user.email)
+//                    val newUrl = user.photoUrl.toString()
+//                    glideUrl = "$newUrl?height=500"
+//                    Glide.with(requireContext()).load(glideUrl).into(pic)
+                    getUserData(user, userViewModel)
                 }
                 else -> {
                     getUserData(user, userViewModel)
-                    getFollower(user.uid)
-                    getFollowing(user.uid)
                 }
             }
         }
@@ -190,6 +190,8 @@ class ProfileFragment : Fragment() {
                                 pic.setImageResource(R.drawable.ic_baseline_add_a_photo_24)
                             }
                             getCollection(user.uid)
+                            getFollower(user.uid)
+                            getFollowing(user.uid)
                             return
                         }
                     }
