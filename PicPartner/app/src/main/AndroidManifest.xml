@@ -12,10 +12,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Application_Login">
-        <activity android:name="com.example.picpartner.MainActivity"></activity>
         <activity android:name="com.example.picpartner.login.LoginActivity"
             android:windowSoftInputMode="adjustResize"/>
-        <activity android:name="com.example.picpartner.StartActivity">
+        <activity android:name="com.example.picpartner.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
