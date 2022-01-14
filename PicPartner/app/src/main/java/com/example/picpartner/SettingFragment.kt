@@ -68,7 +68,7 @@ class SettingFragment : Fragment() {
 
         logout.setOnClickListener {
             FirebaseAuth.getInstance().signOut()
-            startActivity(Intent(activity, StartActivity::class.java))
+            startActivity(Intent(activity, MainActivity::class.java))
         }
 
         editComplete.setOnClickListener {
