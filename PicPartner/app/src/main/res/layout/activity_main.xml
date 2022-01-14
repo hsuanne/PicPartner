@@ -26,7 +26,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:defaultNavHost="true"
         app:navGraph="@navigation/main_navigation"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile_regular" />
 
     </ScrollView>
 
